@@ -1,8 +1,8 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const connectDB = require('./config/db');
+const express = require("express");
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const connectDB = require("./config/db");
 
 // Load env variables
 dotenv.config();
@@ -14,21 +14,21 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cookieParser());
-app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:3001"],
+  })
+);
 
 // Import routes
-const authRoutes = require('./routes/authRoutes');
+const authRoutes = require("./routes/authRoutes");
 
 // Mount routes
-app.use('/api/auth', authRoutes);
+app.use("/api/auth", authRoutes);
 
 // Base route
-app.get('/', (req, res) => {
-  res.send('API is running...');
+app.get("/", (req, res) => {
+  res.send("API is running...");
 });
 
 const PORT = process.env.PORT || 5001;

@@ -1,15 +1,16 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/userModel');
+const jwt = require("jsonwebtoken");
+const User = require("../models/userModel");
 
 // Check if user is authenticated
 exports.isAuthenticatedUser = async (req, res, next) => {
   try {
-    const { token } = req.cookies;
+    const bearerToken = req.headers["authorization"];
+    const token = bearerToken.split(" ")[1];
 
     if (!token) {
       return res.status(401).json({
         success: false,
-        message: 'Login first to access this resource'
+        message: "Login first to access this resource",
       });
     }
 
@@ -20,7 +21,7 @@ exports.isAuthenticatedUser = async (req, res, next) => {
   } catch (error) {
     res.status(401).json({
       success: false,
-      message: 'Authentication failed'
+      message: "Authentication failed",
     });
   }
 };
